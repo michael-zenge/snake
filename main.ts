@@ -101,12 +101,12 @@ tiles.placeOnTile(myFood, tiles.getTileLocation(randint(1, 10), randint(1, 8)))
 linInc = 0
 colInc = 1
 game.onUpdateInterval(350, function () {
-    for (let index = 0; index <= listSnake.length; index++) {
+    for (let index = 0; index <= listSnake.length - 1; index++) {
         if (index == listSnake.length - 1) {
-            break;
+            tiles.placeOnTile(listSnake[index], tiles.getTileLocation(listSnake[index].tilemapLocation().column + colInc, listSnake[index].tilemapLocation().row + linInc))
+        } else {
+            tiles.placeOnTile(listSnake[index], tiles.getTileLocation(listSnake[index + 1].tilemapLocation().column, listSnake[index + 1].tilemapLocation().row))
+            listSnake[index].setFlag(SpriteFlag.Ghost, false)
         }
-        tiles.placeOnTile(listSnake[index], tiles.getTileLocation(listSnake[index + 1].tilemapLocation().column, listSnake[index + 1].tilemapLocation().row))
-        listSnake[index].setFlag(SpriteFlag.Ghost, false)
     }
-    tiles.placeOnTile(snakeHead, tiles.getTileLocation(snakeHead.tilemapLocation().column + colInc, snakeHead.tilemapLocation().row + linInc))
 })
